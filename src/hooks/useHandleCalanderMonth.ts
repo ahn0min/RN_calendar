@@ -1,12 +1,13 @@
 import {useState} from 'react';
 import {transformDateIntoNumberData} from '../utils/transformDateIntoNumberData';
+
 interface IUseCalenaderProps {
   newDate: Date;
   location: 'en-US' | 'ko-KR' | undefined;
   toLocaleDateStringOptions: Intl.DateTimeFormatOptions;
 }
 
-export const useCalander = ({
+export const useHandleCalanderMonth = ({
   newDate,
   location,
   toLocaleDateStringOptions,
