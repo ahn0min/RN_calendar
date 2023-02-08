@@ -1,12 +1,12 @@
 import React, {FunctionComponent} from 'react';
-import {Text, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 
-import {viewStyle} from '../styles/view';
+import {CalanderContainer} from '../components/calander/CalanderContainer';
 
 const CalenderScreen: FunctionComponent = () => {
   return (
-    <SafeAreaView style={viewStyle.centerView}>
-      <Text>Calender</Text>
+    <SafeAreaView>
+      <CalanderContainer />
     </SafeAreaView>
   );
 };
