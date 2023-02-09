@@ -25,10 +25,12 @@ export const Calander = ({selectedDate}: ICalanderProps) => {
   );
 
   const renderCalanderDays = () => {
-    return calanderDays.map(dates => (
-      <CalanderRow>
+    return calanderDays.map((dates, index) => (
+      <CalanderRow key={index}>
         {dates.map(date => (
-          <CalanderItem isSelected={false}>{date.date}</CalanderItem>
+          <CalanderItem isSelected={false} key={`${date.month}_${date.date}`}>
+            {date.date}
+          </CalanderItem>
         ))}
       </CalanderRow>
     ));
