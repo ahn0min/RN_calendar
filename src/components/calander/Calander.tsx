@@ -8,6 +8,7 @@ import {
   ChangeSelectedDateOrViewDateFunction,
   SelectedDate,
 } from '../../hooks/useHandleCalanderMonth';
+import {transformDateIntoNumberData} from '../../utils/transformDateIntoNumberData';
 
 const dayNamesKR = ['일', '월', '화', '수', '목', '금', '토'] as const;
 
@@ -37,16 +38,26 @@ export const Calander = ({
     return calanderWeeks.map((calanderWeek, index) => (
       <CalanderRow key={index}>
         {calanderWeek.map(calanderDay => {
+          const {
+            fullYear: currentViewFullYear,
+            month: currentViewMonth,
+            date: currentViewDate,
+          } = transformDateIntoNumberData(viewDate);
+
+          const isCurrentMonth = calanderDay.month === currentViewMonth;
+          const isHoliday = calanderDay.day === 0;
           const isSelected =
             calanderDay.fullYear === selectedDate.fullYear &&
             calanderDay.month === selectedDate.month &&
             calanderDay.date === selectedDate.date;
-          const isCurrentMonth = calanderDay.month === viewDate.getMonth() + 1;
-          const isHoliday = calanderDay.day === 0;
 
           const onPressOut = () =>
             changeSelectedDateOrViewDate({
-              currentDateObject: selectedDate,
+              currentDateObject: {
+                fullYear: currentViewFullYear,
+                month: currentViewMonth,
+                date: currentViewDate,
+              },
               changeableDateObject: {
                 fullYear: calanderDay.fullYear,
                 month: calanderDay.month,
