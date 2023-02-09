@@ -5,17 +5,20 @@ import colors from '../../styles/colors';
 
 interface ICalanderDayItemProps {
   children: ReactNode;
+  isSaturday: boolean;
   isHoliday: boolean;
 }
 
 export const CalanderDayItem = ({
-  isHoliday,
   children,
+  isSaturday,
+  isHoliday,
 }: ICalanderDayItemProps) => {
-  const holiDayStyle = isHoliday ? style.holiDay : {};
+  const holidayStyle = isHoliday ? style.holiday : {};
+  const sundayStyle = isSaturday ? style.saturday : {};
   return (
     <View>
-      <Text style={holiDayStyle}>{children}</Text>
+      <Text style={{...holidayStyle, ...sundayStyle}}>{children}</Text>
     </View>
   );
 };
@@ -25,6 +28,7 @@ interface ICalanderDateItemProps {
   isSelected: boolean;
   isCurrentMonth: boolean;
   isHoliday: boolean;
+  isSaturday: boolean;
   onPressOut: () => void;
 }
 
@@ -33,6 +37,7 @@ export const CalanderDateItem = ({
   isSelected,
   isCurrentMonth,
   isHoliday,
+  isSaturday,
   onPressOut,
 }: ICalanderDateItemProps) => {
   const selectedStyle = isSelected
@@ -40,11 +45,14 @@ export const CalanderDateItem = ({
     : style.calanderItem;
 
   const monthDateStyle = !isCurrentMonth ? style.otherMonthDate : {};
-  const holiDayStyle = isHoliday ? style.holiDay : {};
+  const holidayStyle = isHoliday ? style.holiday : {};
+  const saturdayStyle = isSaturday ? style.saturday : {};
 
   return (
     <TouchableOpacity style={selectedStyle} onPressOut={onPressOut}>
-      <Text style={{...monthDateStyle, ...holiDayStyle}}>{children}</Text>
+      <Text style={{...monthDateStyle, ...holidayStyle, ...saturdayStyle}}>
+        {children}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -64,7 +72,10 @@ const style = StyleSheet.create({
   otherMonthDate: {
     opacity: 0.4,
   },
-  holiDay: {
+  holiday: {
     color: colors.calander.holiday,
+  },
+  saturday: {
+    color: colors.calander.saturday,
   },
 });

@@ -27,7 +27,10 @@ export const Calander = ({
   const caladerDateNameElements = useMemo(
     () =>
       dayNamesKR.map((dayNameKR, index) => (
-        <CalanderDayItem key={dayNameKR} isHoliday={index === 0}>
+        <CalanderDayItem
+          key={dayNameKR}
+          isHoliday={index === 0}
+          isSaturday={index === 6}>
           {dayNameKR}
         </CalanderDayItem>
       )),
@@ -46,6 +49,7 @@ export const Calander = ({
 
           const isCurrentMonth = calanderDay.month === currentViewMonth;
           const isHoliday = calanderDay.day === 0;
+          const isSaturday = calanderDay.day === 6;
           const isSelected =
             calanderDay.fullYear === selectedDate.fullYear &&
             calanderDay.month === selectedDate.month &&
@@ -71,7 +75,8 @@ export const Calander = ({
               onPressOut={onPressOut}
               isCurrentMonth={isCurrentMonth}
               isSelected={isSelected}
-              isHoliday={isHoliday}>
+              isHoliday={isHoliday}
+              isSaturday={isSaturday}>
               {calanderDay.date}
             </CalanderDateItem>
           );

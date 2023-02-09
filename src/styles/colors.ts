@@ -5,6 +5,7 @@ const colors = {
   },
   calander: {
     holiday: '#f83d38',
+    saturday: '#007be5',
     selected: 'blue',
   },
 } as const;
