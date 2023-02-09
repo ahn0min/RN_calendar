@@ -2,34 +2,63 @@ import {useState} from 'react';
 import {transformDateIntoNumberData} from '../utils/transformDateIntoNumberData';
 
 interface IUseCalenaderProps {
-  newDate: Date;
+  currentDate: Date;
   location: 'en-US' | 'ko-KR' | undefined;
   toLocaleDateStringOptions: Intl.DateTimeFormatOptions;
 }
 
 export const useHandleCalanderMonth = ({
-  newDate,
+  currentDate,
   location,
   toLocaleDateStringOptions,
 }: IUseCalenaderProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date>(newDate);
+  const {
+    fullYear: currentFullYear,
+    month: currentMonth,
+    date: currentNumberDate,
+  } = transformDateIntoNumberData(currentDate);
 
-  const {fullYear, month, date, day} =
-    transformDateIntoNumberData(selectedDate);
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>({
+    fullYear: currentFullYear,
+    month: currentMonth,
+    date: currentNumberDate,
+  });
 
-  const monthWithLocale = selectedDate.toLocaleDateString(
+  const [viewDate, setViewDate] = useState<Date>(currentDate);
+
+  const {fullYear, month, date, day} = transformDateIntoNumberData(viewDate);
+  const monthWithLocale = viewDate.toLocaleDateString(
     location,
     toLocaleDateStringOptions,
   );
 
   const changePrevMonth = () => {
-    setSelectedDate(new Date(fullYear, month - 2));
+    setViewDate(new Date(fullYear, month - 2));
   };
   const changeNextMonth = () => {
-    setSelectedDate(new Date(fullYear, month));
+    setViewDate(new Date(fullYear, month));
+  };
+
+  const changeSelectedDateOrViewDate: ChangeSelectedDateOrViewDateFunction = ({
+    currentDateObject,
+    changeableDateObject,
+  }) => {
+    if (currentDateObject.month == changeableDateObject.month) {
+      return setSelectedDate({...changeableDateObject});
+    }
+
+    setSelectedDate({...changeableDateObject});
+    setViewDate(
+      new Date(
+        changeableDateObject.fullYear,
+        changeableDateObject.month - 1,
+        changeableDateObject.date,
+      ),
+    );
   };
 
   return {
+    viewDate,
     selectedDate,
     fullYear,
     monthWithNumber: month,
@@ -38,5 +67,22 @@ export const useHandleCalanderMonth = ({
     day,
     changePrevMonth,
     changeNextMonth,
+    changeSelectedDateOrViewDate,
   };
+};
+
+export type ChangeSelectedDateOrViewDateFunction = ({
+  currentDateObject,
+  changeableDateObject,
+}: ChangeSelectedDateOrViewDateFunctionParameter) => void;
+
+export type SelectedDate = {
+  fullYear: number;
+  month: number;
+  date: number;
+};
+
+type ChangeSelectedDateOrViewDateFunctionParameter = {
+  currentDateObject: SelectedDate;
+  changeableDateObject: SelectedDate;
 };

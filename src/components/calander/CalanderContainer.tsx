@@ -4,14 +4,16 @@ import {useHandleCalanderMonth} from '../../hooks/useHandleCalanderMonth';
 
 export const CalanderContainer = () => {
   const {
+    viewDate,
     selectedDate,
     fullYear,
     monthWithLocale,
     changePrevMonth,
     changeNextMonth,
+    changeSelectedDateOrViewDate,
   } = useHandleCalanderMonth({
-    newDate: new Date(),
-    location: 'en-US',
+    currentDate: new Date(),
+    location: 'ko-KR',
     toLocaleDateStringOptions: {
       month: 'long',
     },
@@ -25,7 +27,11 @@ export const CalanderContainer = () => {
         changePrevMonth={changePrevMonth}
         changeNextMonth={changeNextMonth}
       />
-      <Calander selectedDate={selectedDate} />
+      <Calander
+        viewDate={viewDate}
+        selectedDate={selectedDate}
+        changeSelectedDateOrViewDate={changeSelectedDateOrViewDate}
+      />
     </>
   );
 };
