@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import {useMemo} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 import {CalanderDateItem, CalanderDayItem} from './CalanderItems';
 import {CalanderRow} from './CalanderRow';
@@ -9,18 +9,29 @@ import {
   SelectedDate,
 } from '../../hooks/useHandleCalanderMonth';
 import {transformDateIntoNumberData} from '../../utils/transformDateIntoNumberData';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
+import {CalanderWeek} from './CalanderWeek';
 
 const dayNamesKR = ['일', '월', '화', '수', '목', '금', '토'] as const;
 
 interface ICalanderProps {
   viewDate: Date;
   selectedDate: SelectedDate;
+  changePrevMonth: () => void;
+  changeNextMonth: () => void;
   changeSelectedDateOrViewDate: ChangeSelectedDateOrViewDateFunction;
 }
 
 export const Calander = ({
   viewDate,
   selectedDate,
+  changePrevMonth,
+  changeNextMonth,
   changeSelectedDateOrViewDate,
 }: ICalanderProps) => {
   const calanderWeeks = useGetCalanderWeek(viewDate);
@@ -85,16 +96,58 @@ export const Calander = ({
     ));
   };
 
+  const horizontal = useSharedValue({horizontal: 'true'});
+  const offset = useSharedValue({x: 0, y: 0});
+  const backgroundColor = useSharedValue({color: 'red'});
+  const animationStyle = useAnimatedStyle(() => ({
+    horizontal: horizontal.value,
+    transform: [{translateX: offset.value.x}, {translateY: offset.value.y}],
+    backgroundColor: backgroundColor.value.color,
+  }));
+
+  const scrollViewAttributes = {horizontal: false};
+
+  const gesture = Gesture.Pan()
+    .onBegin(() => {})
+    .onStart(() => {
+      scrollViewAttributes.horizontal = true;
+    })
+    .onUpdate(props => {
+      // translationY 만큼 이동해줘도 될 것 같다.
+      offset.value = {
+        x: props.translationX,
+        y: props.translationY,
+      };
+    })
+    .onEnd(() => {
+      console.log('end');
+    });
+
   return (
-    <View style={style.calanderSection}>
-      <CalanderRow>{caladerDateNameElements}</CalanderRow>
-      <View>{renderCalanderDays()}</View>
-    </View>
+    <GestureDetector gesture={gesture}>
+      <View style={style.calanderSection}>
+        <CalanderRow>{caladerDateNameElements}</CalanderRow>
+        <Animated.ScrollView horizontal={scrollViewAttributes.horizontal}>
+          {renderCalanderDays()}
+          <CalanderWeek
+            viewDate={viewDate}
+            changePrevMonth={changePrevMonth}
+            changeNextMonth={changeNextMonth}
+            // changeSelectedDateOrViewDate={changeSelectedDateOrViewDate}
+          />
+        </Animated.ScrollView>
+        {/* </Animated.ScrollView> */}
+      </View>
+    </GestureDetector>
   );
 };
 
 const style = StyleSheet.create({
   calanderSection: {
     margin: '5%',
+  },
+  calanderSlider: {
+    flexDirection: 'column',
+    overflow: 'scroll',
   },
 });

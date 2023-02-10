@@ -1,19 +1,24 @@
 import type {ReactNode} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, useWindowDimensions, View} from 'react-native';
 
 interface IProps {
   children: ReactNode;
 }
 
 export const CalanderRow = ({children}: IProps) => {
-  return <View style={style.calanderRowView}>{children}</View>;
+  const {width, height} = useWindowDimensions();
+
+  const getStyleSheet = () => {
+    return StyleSheet.create({
+      calanderRowView: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 10,
+        width: width * 0.9,
+      },
+    });
+  };
+  return <View style={getStyleSheet().calanderRowView}>{children}</View>;
 };
 
-const style = StyleSheet.create({
-  calanderRowView: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-  },
-});
+// 스크롤 이벤트가 발생했을 때 어느정도 움직이면 스크롤바를 통째로 다음 페이지로 바꿔준다.

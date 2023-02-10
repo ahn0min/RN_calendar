@@ -30,6 +30,8 @@ export const CalanderContainer = () => {
       <Calander
         viewDate={viewDate}
         selectedDate={selectedDate}
+        changePrevMonth={changePrevMonth}
+        changeNextMonth={changeNextMonth}
         changeSelectedDateOrViewDate={changeSelectedDateOrViewDate}
       />
     </>
