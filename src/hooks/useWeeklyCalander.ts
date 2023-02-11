@@ -44,8 +44,8 @@ export const useWeeklyCalander = ({
   };
 
   useEffect(() => {
-    console.log('start', viewWeekIndex);
-    console.log('length', calanderWeeks.length);
+    // console.log('start', viewWeekIndex);
+    // console.log('length', calanderWeeks.length);
     // if (!viewWeekIndex) {
     //   return setViewWeekIndex(0);
     // }

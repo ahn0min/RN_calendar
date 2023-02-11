@@ -16,6 +16,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {CalanderWeek} from './CalanderWeek';
+import {CalanderSwipable} from './CalanderSwipable';
 
 const dayNamesKR = ['일', '월', '화', '수', '목', '금', '토'] as const;
 
@@ -120,7 +121,7 @@ export const Calander = ({
       };
     })
     .onEnd(() => {
-      console.log('end');
+      // console.log('end');
     });
 
   return (
@@ -129,11 +130,17 @@ export const Calander = ({
         <CalanderRow>{caladerDateNameElements}</CalanderRow>
         <Animated.ScrollView horizontal={scrollViewAttributes.horizontal}>
           {renderCalanderDays()}
-          <CalanderWeek
+          {/* <CalanderWeek
             viewDate={viewDate}
             changePrevMonth={changePrevMonth}
             changeNextMonth={changeNextMonth}
             // changeSelectedDateOrViewDate={changeSelectedDateOrViewDate}
+          /> */}
+          <View style={{height: 50}} />
+          <CalanderSwipable
+            viewDate={viewDate}
+            changePrevMonth={changePrevMonth}
+            changeNextMonth={changeNextMonth}
           />
         </Animated.ScrollView>
         {/* </Animated.ScrollView> */}
