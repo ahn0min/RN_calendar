@@ -43,6 +43,7 @@ export const NewCalanderWeekCarousel = () => {
         ref={animatedFlatListRef as any}
         horizontal
         pagingEnabled
+        showsHorizontalScrollIndicator={false}
         initialScrollIndex={Math.floor(carouselWeeks.length / 2)}
         onMomentumScrollEnd={handleCurrentDateOnNativeScroll}
         getItemLayout={(data, index) => ({
