@@ -35,6 +35,7 @@ const style = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: 10,
+    marginBottom: 20,
   },
   dateText: {
     flexBasis: '50%',

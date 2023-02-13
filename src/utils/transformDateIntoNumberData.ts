@@ -7,5 +7,13 @@ export function transformDateIntoNumberData(targetDate: Date) {
   const minutes = targetDate.getMinutes();
   const seconds = targetDate.getSeconds();
 
-  return {fullYear, month, date, day, hours, minutes, seconds};
+  return {
+    fullYear,
+    month,
+    date,
+    day,
+    hours,
+    minutes,
+    seconds,
+  };
 }
