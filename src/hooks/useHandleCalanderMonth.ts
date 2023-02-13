@@ -24,10 +24,8 @@ export const useHandleCalanderMonth = ({
     date: currentNumberDate,
   });
 
-  // 초기값으로 currentDate를 받기 때문이다.
   const [viewDate, setViewDate] = useState<Date>(currentDate);
 
-  // currentDate가 새롭게 선언이 되었을 때
   useEffect(() => {
     if (!currentDate) return;
 

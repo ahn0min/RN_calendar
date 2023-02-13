@@ -12,8 +12,6 @@ interface IProps {
   changeSelectedDateOrViewDate: (date: Date) => void;
 }
 
-// 여기서 달 데이터를 그려주는거다
-
 export const CalanderMonth = ({
   monthDate,
   viewDate,

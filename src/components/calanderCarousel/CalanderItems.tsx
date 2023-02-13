@@ -48,8 +48,6 @@ export const CalanderDateItem = ({
   const holidayStyle = isHoliday ? style.holiday : {};
   const saturdayStyle = isSaturday ? style.saturday : {};
 
-  // console.log('rerender', isCurrentMonth);
-
   return (
     <TouchableOpacity style={selectedStyle} onPress={onPress}>
       <Text style={{...monthDateStyle, ...holidayStyle, ...saturdayStyle}}>

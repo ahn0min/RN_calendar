@@ -64,7 +64,6 @@ export const useWeeklyCarouselCalander = ({prevSelectedDate}: IProps) => {
   const transforedNextWeekDatesViewDate = nextWeekDates?.map(date =>
     transformDateIntoNumberData(date),
   );
-  // render months datas
   const [carouselWeeks, setCarouselWeeks] = useState([
     transforedPrevWeekDatesViewDate,
     transforedCurrentWeekDatesViewDate,

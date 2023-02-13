@@ -16,7 +16,6 @@ export const useMonthCarouselCalanders = () => {
   const currentMonthFirstDate = new Date(fullYear, month - 1);
   const nextMonthFirstDate = new Date(fullYear, month);
 
-  // isCurrentMonth with style
   const carouselMonthsFirstDates = [
     prevMonthFirstDate,
     currentMonthFirstDate,

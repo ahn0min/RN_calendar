@@ -19,7 +19,6 @@ export const CalanderWeek = ({
   return (
     <CalanderRow>
       {weekDate.map(dayDate => {
-        // 보여줘야 하는 데이트
         const {month: currentViewMonth} = transformDateIntoNumberData(viewDate);
 
         const isHoliday = dayDate.day === 0;

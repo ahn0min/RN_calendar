@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {Gesture} from 'react-native-gesture-handler';
 import {
   runOnJS,
   useAnimatedStyle,
@@ -51,8 +51,6 @@ export const useGestureTransformCalander = () => {
         calanderHeight.value = WEEKLY_HEIGHT + translationY;
         return;
       }
-      console.log(translationY);
-      // calanderHeight.value += translationY;
     })
     .onEnd(({translationY}) => {
       if (translationY > 20) {
