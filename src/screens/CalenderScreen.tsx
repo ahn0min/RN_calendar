@@ -12,17 +12,12 @@ import {useGestureTransformCalander} from '../hooks/useGestureTransformCalander'
 
 const CalenderScreen: FunctionComponent = () => {
   const {type, gesture, animatedStyle} = useGestureTransformCalander();
-  const [sliding, setSliding] = useState(false);
 
   return (
     <GestureHandlerRootView>
       <GestureDetector gesture={gesture}>
         <SafeAreaView>
-          <Animated.View
-            style={animatedStyle}
-            onLayout={e => {
-              if (!sliding) setSliding(true);
-            }}>
+          <Animated.View style={animatedStyle}>
             {type === 'montly' ? (
               <NewCalanderCarousel />
             ) : (
