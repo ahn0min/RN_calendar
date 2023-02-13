@@ -6,15 +6,16 @@ interface IProps {
 }
 
 export const CalanderRow = ({children}: IProps) => {
-  const {width, height} = useWindowDimensions();
+  const {width} = useWindowDimensions();
 
   const getStyleSheet = () => {
     return StyleSheet.create({
       calanderRowView: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginBottom: 10,
-        width: width * 0.9,
+        alignContent: 'center',
+        width,
+        padding: 5,
       },
     });
   };

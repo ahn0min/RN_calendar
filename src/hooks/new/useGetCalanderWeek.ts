@@ -1,11 +1,10 @@
-import {transformDateIntoNumberData} from '../utils/transformDateIntoNumberData';
+import {transformDateIntoNumberData} from '../../utils/transformDateIntoNumberData';
 
 export type DateNumberDto = ReturnType<typeof transformDateIntoNumberData>;
 
 export const useGetCalanderWeek = (date: Date): DateNumberDto[][] => {
   const {fullYear, month} = transformDateIntoNumberData(date);
 
-  // TODO: 함수로 분리하기
   const prevMonthLastDateObject = new Date(fullYear, month - 1, 0);
   const prevMonthLastDay = prevMonthLastDateObject.getDay();
 
@@ -31,7 +30,6 @@ export const useGetCalanderWeek = (date: Date): DateNumberDto[][] => {
       ),
   );
 
-  // TODO: 함수로 분리하기
   const firstWeek = monthDateObjects.slice(0, 7);
   const secondWeek = monthDateObjects.slice(7, 14);
   const thirdWeek = monthDateObjects.slice(14, 21);
@@ -45,7 +43,6 @@ export const useGetCalanderWeek = (date: Date): DateNumberDto[][] => {
   const currentMonthLastDateObject = new Date(fullYear, month, 0);
   const currentMonthLastDate = currentMonthLastDateObject.getDate();
 
-  // TODO: 함수로 분리하기
   if (
     fourthWeekLastDate.month !== month ||
     fourthWeekLastDate.date >= currentMonthLastDate
